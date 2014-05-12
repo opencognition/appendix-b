@@ -8,7 +8,7 @@
             "roomFunction": "Server, Computer, Blade",
             "code": "A full height 4-socket blade server that allows deployment of large Enterprise-class applications...",
             "data": "$4929 Dell Computer Corp.",
-            "status": "Active",
+            "status": "Approved",
             "lastModified": "03/04/14"
         },
         {
@@ -17,7 +17,7 @@
             "roomFunction": "Server, Computer, Blade",
             "code": "A full height 4-socket blade server that allows deployment of large Enterprise-class applications...",
             "data": "$4929 Dell Computer Corp.",
-            "status": "Active",
+            "status": "Pending",
             "lastModified": "03/04/14"
         }
     ]

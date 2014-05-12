@@ -319,10 +319,13 @@
                             <br>
                             <br>
                             <div ng-controller="ModalDemoCtrl">
-                                <button class="btn btn-default" ng-click="openAdd()" tooltip="Add room">Add Room</button><br/><br/><br/><br/>
+                                <button class="btn btn-default ColVis_Button" ng-click="openAdd()" tooltip="Add room">Add Room</button><br/><br/><br/><br/>
+                            </div>
+                            <div ng-controller="ModalDemoCtrl" id="table-div">
                                 <table id="records" class="table table-striped table-bordered table-hover" width="100%">
                                     <thead>
                                         <tr>
+                                            <th class="record-id">ID</th>
                                             <th class="room-code">Room Code</th>
                                             <th class="room-function">Room Function</th>
                                             <th class="code">Code</th>
@@ -432,6 +435,14 @@
                     $('#record-count-2').html(recordsFiltered);
                     $('#ajax-duration').html((dataTablesAjaxDuration * .001).toFixed(2));
                 })
+                .on('draw.dt', function (e, settings, json) {
+                    // compile dynamic DOM so that AngularJS is aware of the new DOM, i.e. so that ng-click works.
+                    angular.element(document).injector().invoke(function($compile) {
+                        $div = $('#table-div')[0];
+                        var scope = angular.element($div).scope();
+                        $compile($div)(scope);
+                    })
+                })
                 .dataTable({
                     "serverSide": true,
                     "processing": true,
@@ -455,6 +466,7 @@
                         }
                     },
                     "columns": [
+                        {"name": "ID",              "data": "id",           "targets": "record-id",     "visible": false},
                         {
                             "name": "Room Code",        "data": "roomCode",          "targets": "room-code",
                             "render": function (data, type, full) {
@@ -467,11 +479,13 @@
                         {
                             "name": "Status",       "data": "status",       "targets": "status",
                             "render": function (data, type, full) {
-                                if (data == true) {
-                                    return '<span ng-class="{\'label label-success\': row.isActive, \'label label-danger\': !row.isActive}" class="ng-binding label label-success">Active</span>';
+                                if (data == 'Approved') {
+                                    // return '<span ng-class="{\'label label-success\': row.isActive, \'label label-warning\': !row.isActive}" class="ng-binding label label-success">Approved</span>';
+                                    return '<span class="ng-binding label label-success">Approved</span>';
                                 }
                                 else {
-                                    return '<span ng-class="{\'label label-success\': row.isActive, \'label label-danger\': !row.isActive}" class="ng-binding label label-danger">Inactive</span>';
+                                    // return '<span ng-class="{\'label label-success\': row.isActive, \'label label-warning\': !row.isActive}" class="ng-binding label label-warning">Pending</span>';
+                                    return '<span class="ng-binding label label-warning">Changes Pending</span>';
                                 }
                             }
                         },
@@ -482,7 +496,13 @@
                             }
                         }
                     ],
-                    "dom": 'T<"clear">lfrtip',
+                    "dom": 'C<"clear">T<"clear">lfrtip',
+                    "colVis": {
+                        "buttonText": "Column Displayed",
+                        "restore": "Restore",
+                        "showAll": "Show all",
+                        "exclude": [0, 5, 7] // disable show/hide on ID, Status, and Actions
+                    },
                     "tableTools": {
                         "sSwfPath": "js/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
                         "aButtons": [
