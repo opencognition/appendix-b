@@ -1,0 +1,24 @@
+{
+    "recordsTotal": 2,
+    "recordsFiltered": 2,
+    "data": [
+        {
+            "id": 1,
+            "roomCode": "A0920",
+            "roomFunction": "Server, Computer, Blade",
+            "code": "A full height 4-socket blade server that allows deployment of large Enterprise-class applications...",
+            "data": "$4929 Dell Computer Corp.",
+            "status": "Active",
+            "lastModified": "03/04/14"
+        },
+        {
+            "id": 1,
+            "roomCode": "A0920",
+            "roomFunction": "Server, Computer, Blade",
+            "code": "A full height 4-socket blade server that allows deployment of large Enterprise-class applications...",
+            "data": "$4929 Dell Computer Corp.",
+            "status": "Active",
+            "lastModified": "03/04/14"
+        }
+    ]
+}
